@@ -1,8 +1,9 @@
 //MAIN FILE
 #include <stdio.h>
+#include "lib.h"
 
 int main(void){
-    printf("Hello world test test");
+    //
     return 0;
 }
 
