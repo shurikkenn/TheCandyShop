@@ -1,5 +1,13 @@
 //lib,c kanei implement to header file lib.h
 
+
+
+// ░█▀▀░█▀█░█▀█░█▀▄░█░█░░░█▀▀░█░█░█▀█░█▀█
+// ░█░░░█▀█░█░█░█░█░░█░░░░▀▀█░█▀█░█░█░█▀▀
+// ░▀▀▀░▀░▀░▀░▀░▀▀░░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀░░
+
+
+
 #include "lib.h"
 #include <stdio.h> //gia inout/output
 #include <string.h> //gia tis perigrafes twn proiontwn
@@ -7,7 +15,7 @@
 #include <stdlib.h> //gia to exit()
 
 
-//sunarthsh gia arxikopohsh tou kathe proiontos ston pinaka
+
 Product add2inventory(double nPrice, const char *nDesc){
     Product newproduct;
     //arxika diathesima uparxoun 2 proionta sumfwna me thn ekfwnhsh
@@ -24,4 +32,25 @@ Product add2inventory(double nPrice, const char *nDesc){
         exit(1);
     }
     return newproduct;
+}
+
+int innit_menu(void){
+    int user_option;
+    printf("░█▀▀░█▀█░█▀█░█▀▄░█░█░░░█▀▀░█░█░█▀█░█▀█\n");
+    printf("░█░░░█▀█░█░█░█░█░░█░░░░▀▀█░█▀█░█░█░█▀▀\n");
+    printf("░▀▀▀░▀░▀░▀░▀░▀▀░░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀░░\n");
+    printf("\nwelcome.");
+    printf("\nplease select");
+    printf("\n[1] admin (to fill the catalog)");
+    printf("\n[2] customer (to begin ordering)");
+    printf("\n[0] exit ");
+    printf("\n~$ ");
+    scanf("%d", &user_option);
+    //periptwsh p ginei katlathos epilogh peran tou menu
+    while(user_option < 0 || user_option > 2){
+        printf("\n[ERROR] Please select only from the menu...");
+        printf("\n~$ ");
+        scanf("%d", &user_option);
+    }
+    return user_option;
 }

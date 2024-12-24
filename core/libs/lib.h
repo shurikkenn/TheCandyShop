@@ -1,4 +1,12 @@
-//---LIB FILE
+//LIB FILE
+
+
+
+// ░█▀▀░█▀█░█▀█░█▀▄░█░█░░░█▀▀░█░█░█▀█░█▀█
+// ░█░░░█▀█░█░█░█░█░░█░░░░▀▀█░█▀█░█░█░█▀▀
+// ░▀▀▀░▀░▀░▀░▀░▀▀░░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀░░
+
+
 #ifndef LIB_H
 #define LIB_H
 
@@ -19,8 +27,12 @@ typedef struct {
     unsigned int item_count;
 } Product;
 
-//dhlwseis sunarthsewn
+//sunarthsh gia arxikopohsh tou kathe proiontos ston pinaka
 Product add2inventory(double nPrice, const char *nDesc);
+
+//to menu pou tha emfanizete kata thn ektelesh tou programmatos
+//edw o xristis apofasizei an tha na einai o admin h o pelaths
+int innit_menu(void);
 
 #endif
 
