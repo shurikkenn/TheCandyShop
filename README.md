@@ -18,9 +18,13 @@
 ```
 
 ## Usage
-Στη παρούσα φάση η εφαρμογή δεν έχει make file (TBD), επομένως τρέξτε απευθείας το object file ως εξής:
+Στη παρούσα φάση η εφαρμογή **δεν έχει make file** (TBD), επομένως τρέξτε απευθείας το object file ως εξής:
+Αρχικά δίνουμε excecute permission στο αρχείο
 ```bash
 chmod +x ./candyshop
+```
+Και μετά το τρέχουμε ως εξής:
+```bash
 ./candyshop
 ```
 
