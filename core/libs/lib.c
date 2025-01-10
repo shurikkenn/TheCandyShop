@@ -16,7 +16,7 @@
 
 
 
-Product add2inventory(double nPrice, const char *nDesc){
+Product add2inventory(float nPrice, const char *nDesc){
     Product newproduct;
     //arxika diathesima uparxoun 2 proionta sumfwna me thn ekfwnhsh
     newproduct.item_count = 2;
@@ -34,23 +34,11 @@ Product add2inventory(double nPrice, const char *nDesc){
     return newproduct;
 }
 
-int innit_menu(void){
-    int user_option;
-    printf("░█▀▀░█▀█░█▀█░█▀▄░█░█░░░█▀▀░█░█░█▀█░█▀█\n");
-    printf("░█░░░█▀█░█░█░█░█░░█░░░░▀▀█░█▀█░█░█░█▀▀\n");
-    printf("░▀▀▀░▀░▀░▀░▀░▀▀░░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀░░\n");
-    printf("\nwelcome.");
-    printf("\nplease select");
-    printf("\n[1] admin (to fill the catalog)");
-    printf("\n[2] customer (to begin ordering)");
-    printf("\n[0] exit ");
-    printf("\n~$ ");
-    scanf("%d", &user_option);
-    //periptwsh p ginei katlathos epilogh peran tou menu
-    while(user_option < 0 || user_option > 2){
-        printf("\n[ERROR] Please select only from the menu...");
-        printf("\n~$ ");
-        scanf("%d", &user_option);
-    }
-    return user_option;
+void final_report(int t_requests, int t_sucessfull, int total_failed, int rev){
+    printf("\n\t\t\ttotal purchase requests = %d", t_requests);
+    printf("\nRuntime stats -> ");
+    printf("\ttotal succesfull purchases = %d", t_sucessfull);
+    printf("\n\t\t\ttotal failed purchases = %d", total_failed);
+    printf("\n\t\t\ttotal revenue accumilated = %d", rev);
+    printf("\n---------END OF REPORT---------\n");
 }
