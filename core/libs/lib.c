@@ -22,7 +22,7 @@ Product add2inventory(float nPrice, const char *nDesc){
     newproduct.item_count = 2;
     newproduct.price = nPrice;
     //gia thn perigrafh prwta elenxoume oti den einai kenh
-    if(nDesc != NULL){
+    /*if(nDesc != NULL){
         //h antigrafh ths neas perigrafhs
         strncpy(newproduct.desc, nDesc, sizeof(newproduct.desc) -1);
         newproduct.desc[sizeof(newproduct.desc) -1] = '\0';
@@ -30,7 +30,7 @@ Product add2inventory(float nPrice, const char *nDesc){
         //prepei na ksanadinei o xrhsths upotheto pros to parwn to grafw ws error kai to prograna termatizei
         fprintf(stderr, "[!] error: %s", "no description given...");
         exit(1);
-    }
+    }*/
     return newproduct;
 }
 

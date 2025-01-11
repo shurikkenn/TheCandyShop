@@ -1,17 +1,18 @@
 //test output
 #include <stdio.h>
+#include "core/libs/lib.h"
 
 int main(void){
-    /* Catalog | Requests Sales | Clients Not Served
-    printf()    
-    */
-    printf("\n\t\treports per item");
-    printf("\n Catalog | Requests | Sales | Clients not served\n");
-    for(int ii=0;ii<20;ii++){
-        printf("1) %d", ii);
-        printf("\t\t55");
-        printf("\t2");
-        printf("\t5");
-        printf("\n");
+    Product catalog[INVENTORY_SIZE];
+    for(int i=1;i<=INVENTORY_SIZE;i++){
+        Product newproduct;
+        float innit_price;
+        char innit_desc[MAX_DESC_SIZE];
+        printf("[*] please fill the information for the product number %d...\n", i);
+        printf("description -> ");
+        fgets(innit_desc, sizeof(innit_desc), stdin);
+        printf("\nprice -> ");
+        scanf("%f", &innit_desc);
+        catalog[i] = add2inventory(innit_price, innit_desc);
     }
 }
