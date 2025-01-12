@@ -14,50 +14,44 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "libs/lib.h"
-#include <signal.h>
 
-// Signal handler for SIGUSR1 in the child process
-void handle_sigusr1(int sig) {
-    printf("Child process received signal %d (SIGUSR1). Resuming execution...\n", sig);
-}
+
 
 int main(void){
+    intro_msg();
+    srand(time(NULL)); //gia th tyxaiothta ths epiloghs
     //arxikopoioume tous agwgous
     int customerToShop[2],storeToCustomer[2];//[0]= read, [1]= write
     if (pipe(customerToShop) == -1 || pipe(storeToCustomer) == -1) {
-        perror("pipe");
+        perror("pipe failed to innitiate");
         exit(EXIT_FAILURE);
     }   
     Product catalog[INVENTORY_SIZE]; //o katalogos me ta proionta
-    pid_t client_pid;
+    //gemizoume ton katalogo
+    printf("[*] initiate the catalog\n");
+    for(int i=0;i<=INVENTORY_SIZE;i++){
+        Product newproduct;
+        float innit_price;
+        char innit_desc[MAX_DESC_SIZE];
+        printf("[*] please fill the information for the product number %d...\n", i);
+        printf("\nprice -> ");
+        scanf("%f", &innit_price);
+        catalog[i] = fill_catalog(innit_price, innit_desc);
+    }
 
     //paraloiloi pinakes me ton catalog pou tha xrhsimopoithoune sth telikh anafora ana proion
     int requests_per_item[INVENTORY_SIZE], sales_per_item[INVENTORY_SIZE], clients_not_subsered[INVENTORY_SIZE];
     int total_requests = 0, total_succesfull = 0, total_failed = 0, revenue = 0; //loipoi metrites TBD
+    pid_t client_pid; //tha xrhsimopoithei gia ta diadoxika forks twn pelatwn
     pid_t pid = fork();
 
-    //αρχικοποιουμε τας πινακας
+    //arxikopoioume tous pinakes prin tis epanalhpseis
     memset(requests_per_item, 0, sizeof(requests_per_item));
     memset(sales_per_item, 0, sizeof(sales_per_item));
     memset(clients_not_subsered, 0, sizeof(clients_not_subsered));
 
     if(pid>=0){
         if(pid>0){ //parent process
-            printf("[*] initiate the catalog\n");
-            for(int i=1;i<=INVENTORY_SIZE;i++){
-                Product newproduct;
-                float innit_price;
-                char innit_desc[MAX_DESC_SIZE];
-                printf("[*] please fill the information for the product number %d...\n", i);
-                /*printf("description -> ");
-                fgets(innit_desc, sizeof(innit_desc), stdin);
-                */
-                printf("\nprice -> ");
-                scanf("%f", &innit_price);
-                catalog[i] = add2inventory(innit_price, innit_desc);
-            }
-            kill(pid, SIGUSR1); //
-
             close(customerToShop[1]);
             close(storeToCustomer[0]);
             int itemWanted_p; //o arithmos tou proiontos ston katalogo
@@ -91,11 +85,10 @@ int main(void){
 
             
         } else if(pid==0) {
-             //child proccess
-            signal(SIGUSR1, handle_sigusr1);
-            pause();
-            printf("gamw to xristo mou");
+            //child proccess
             int itemWanted_c, temp_prices = 0;
+            int p_results;
+
             close(customerToShop[0]);
             close(storeToCustomer[1]);
             //to flag edw xrhsimopoiete gia to antistixo flag sth parent
@@ -103,33 +96,21 @@ int main(void){
             
             /* H PARAGKELIA */
             for(int pelates=0;pelates<5;pelates++){
-                client_pid = fork();
-                if(client_pid>0){
-                    //parent process has no use
-                    //consuming memory (TBD)
-                } else if(client_pid == 0){
+                if((client_pid = fork()) == 0){
                     for (int i=0; i<10; i++){ //kathe loupa einai enas mia paragkelia
                         for(int j=0;j<2;j++){ //kathe paragkelia exei 2 items
                             //arxika theloume ton arithmo tou proiontos ston katalogo apto 1 ews sto 20
-                            srand(time(NULL));
                             itemWanted_c = (rand() % 20) + 1; //o arithmos tou proiontos ston katalogo
 
                             // stelnoume ton arithmo tou item pou thelei o pelaths sto parent process
                             write(customerToShop[1], &itemWanted_c, sizeof(int));
-
-                            if (read(storeToCustomer[0], &flag_c, sizeof(int)) < 0){ //sfalma kata ti th metafora dedomenon sto pipe
-                                perror("\n[!] error at inter-process communication");
-                                exit(1);
-                            } else if(read(storeToCustomer[0], &flag_c, sizeof(int)) == 0){
-                                temp_prices+=flag_c;
-                            }
-
                         }
+                        p_results = read(storeToCustomer[0], &flag_c, sizeof(int));
                         //diabazoume apo to pipe tou parent an yparxei to item pou thelei o costumer
-                        if (read(storeToCustomer[0], &flag_c, sizeof(int)) < 0){ //sfalma kata ti th metafora dedomenon sto pipe
+                        if (p_results < 0){ //sfalma kata ti th metafora dedomenon sto pipe
                             perror("\n[!] error at inter-process communication");
                             exit(1);
-                        } else if(read(storeToCustomer[0], &flag_c, sizeof(int)) == 0){
+                        } else if(p_results == 0){
                             if(flag_c==0){
                                 printf("Products unavailable, requests failed");
                             } else if(flag_c>0){
@@ -174,4 +155,4 @@ int main(void){
     return EXIT_SUCCESS;
 }
 
-//-------TBD---------q
+//---------EOF--------

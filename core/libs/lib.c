@@ -13,14 +13,16 @@
 #include <string.h> //gia tis perigrafes twn proiontwn
 //#include <cstddef> //gia na dhlwnoume ta errors
 #include <stdlib.h> //gia to exit()
+#include <unistd.h>
 
 
 
-Product add2inventory(float nPrice, const char *nDesc){
+Product fill_catalog(float nPrice, const char *nDesc){
     Product newproduct;
     //arxika diathesima uparxoun 2 proionta sumfwna me thn ekfwnhsh
     newproduct.item_count = 2;
     newproduct.price = nPrice;
+
     //gia thn perigrafh prwta elenxoume oti den einai kenh
     /*if(nDesc != NULL){
         //h antigrafh ths neas perigrafhs
@@ -42,3 +44,13 @@ void final_report(int t_requests, int t_sucessfull, int total_failed, int rev){
     printf("\n\t\t\ttotal revenue accumilated = %d", rev);
     printf("\n---------END OF REPORT---------\n");
 }
+
+void intro_msg(){
+    printf("░█▀▀░█▀█░█▀█░█▀▄░█░█░░░█▀▀░█░█░█▀█░█▀█\n");
+    printf("░█░░░█▀█░█░█░█░█░░█░░░░▀▀█░█▀█░█░█░█▀▀\n");
+    printf("░▀▀▀░▀░▀░▀░▀░▀▀░░░▀░░░░▀▀▀░▀░▀░▀▀▀░▀░░\n");
+    printf("\t\twelcome\n\n");
+    sleep(2);
+}
+
+//---------EOF--------

@@ -18,7 +18,7 @@
 //maximum xarakthres perigrafhs gia kathe proion
 #define MAX_DESC_SIZE 120
 //maximum arithmos proiontwn 5
-#define INVENTORY_SIZE 20
+#define INVENTORY_SIZE 5
 //h parakatw domh antiprosopevei to kathe proion me tis antistixes leptomeries
 //*unsgined int dioti o arithmos twn diathesimwn proiontwn de borei na einai arnhtikos
 typedef struct {
@@ -28,13 +28,12 @@ typedef struct {
 } Product;
 
 //sunarthsh gia arxikopohsh tou kathe proiontos ston pinaka
-Product add2inventory(float nPrice, const char *nDesc);
-
-//to menu pou tha emfanizete kata thn ektelesh tou programmatos
-//edw o xristis apofasizei an tha na einai o admin h o pelaths
+Product fill_catalog(float nPrice, const char *nDesc);
 
 void final_report(int t_requests, int t_sucessfull, int total_failed, int rev);
 
+void intro_msg();
+
 #endif
 
-//-----TBD-----
+//----------EOF----------
