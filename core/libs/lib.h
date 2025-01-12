@@ -18,7 +18,7 @@
 //maximum xarakthres perigrafhs gia kathe proion
 #define MAX_DESC_SIZE 120
 //maximum arithmos proiontwn 5
-#define INVENTORY_SIZE 5
+#define INVENTORY_SIZE 20
 //h parakatw domh antiprosopevei to kathe proion me tis antistixes leptomeries
 //*unsgined int dioti o arithmos twn diathesimwn proiontwn de borei na einai arnhtikos
 typedef struct {
